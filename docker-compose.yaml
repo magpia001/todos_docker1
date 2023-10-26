@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  web_todos:
+    # image name 
+    image: web_app:1
+    container_name: web_app
+
+    # Dockerfile에 정의 된 대로 build함
+    build: .
+    # todos 앱 실행 
+    command: python3 todos_mysql/app_start.py
+    # command: uvicorn todos_mysql.main:app --host 0.0.0.0 --port 8080 --reload
+
+    ports:
+      - 8080:8080
+    
+    volumes:
+    # app폴더에서 수정이 이뤄지면 컨테이너 code/app에도 연결되어 반영되게하기 위해 ./todos:/apps/todos으로 설정
+      - ./todos_mysql:/apps/todos_mysql
